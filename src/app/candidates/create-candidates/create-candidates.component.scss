@@ -1,0 +1,36 @@
+.action-buttons-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#right-arrow {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.create-candidate-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .create-candidate-container {
+    width: 100%;
+  }
+
+  .action-buttons-container {
+    flex-direction: column;
+    width: 100%;
+
+    button,
+    a {
+      width: 100%;
+    }
+
+    button {
+      margin-bottom: 8px;
+    }
+  }
+}

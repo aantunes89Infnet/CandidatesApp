@@ -1,0 +1,67 @@
+.list-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.action-buttons-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.candidate-item {
+  width: 100%;
+  margin: auto 0 !important;
+
+  .list-group-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.delete-btn {
+  cursor: pointer;
+
+  &:hover {
+    color: #ea4c46;
+  }
+}
+
+.empty-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 16px auto;
+
+  h1,
+  p {
+    text-align: center;
+    width: 100%;
+  }
+
+  a {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .empty-list-container {
+    width: 100%;
+
+    a {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .add-btn {
+    width: 100%;
+  }
+}

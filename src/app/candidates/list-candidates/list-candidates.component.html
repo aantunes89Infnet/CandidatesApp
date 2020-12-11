@@ -1,0 +1,34 @@
+<div class="list-container" *ngIf="candidates$ | async as candidates">
+  <div *ngIf="candidates.length; else emptyCandidatesList">
+    <div *ngFor="let candidate of candidates; let i = index" class="list-group">
+      <div class="row candidate-item">
+        <div class="list-group-item">
+          <div class="list-group-item-content">
+            {{ candidate.name }} - Nota: {{ candidate.grade }}
+          </div>
+          <span class="material-icons delete-btn" (click)="removeCandidate(i)">
+            delete
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons-container">
+      <a [routerLink]="'/candidates/create'" class="btn btn-primary add-btn"
+        >Cadastrar</a
+      >
+    </div>
+  </div>
+
+  <ng-template #emptyCandidatesList>
+    <div class="empty-list-container">
+      <h1>Nenhum candidato cadastrado</h1>
+      <p>Por favor clique em Cadastrar para cadastrar um candidato</p>
+      <div class="action-buttons-container w-100">
+        <a [routerLink]="'/candidates/create'" class="btn btn-primary add-btn"
+          >Cadastrar</a
+        >
+      </div>
+    </div>
+  </ng-template>
+</div>
