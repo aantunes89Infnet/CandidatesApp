@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CandidateFacade } from 'src/app/store/candidates/candidates-facade.service';
 import { CandidatesService } from '../candidates-service.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class CreateCandidatesComponent implements OnInit {
   CreateCandidateForm: FormGroup;
 
   constructor(
-    private candidatesService: CandidatesService,
+    private candidateFacade: CandidateFacade,
     private router: Router
   ) {}
 
@@ -32,7 +33,7 @@ export class CreateCandidatesComponent implements OnInit {
   }
 
   private persistCandidate(): void {
-    this.candidatesService.addCandidate({
+    this.candidateFacade.addCandidate({
       name: this.CreateCandidateForm.get('name').value,
       grade: this.CreateCandidateForm.get('grade').value,
     });

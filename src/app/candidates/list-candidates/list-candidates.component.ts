@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CandidateFacade } from 'src/app/store/candidates/candidates-facade.service';
 import { Candidate } from '../candidate';
 import { CandidatesService } from '../candidates-service.service';
 
@@ -11,14 +12,14 @@ import { CandidatesService } from '../candidates-service.service';
 export class ListCandidatesComponent implements OnInit {
   public candidates$: Observable<Candidate[]>;
 
-  constructor(private candidateService: CandidatesService) {}
+  constructor(private candidateFacade: CandidateFacade) {}
 
   ngOnInit(): void {
-    this.candidateService.getAll();
-    this.candidates$ = this.candidateService.candidates$;
+    this.candidateFacade.getAll();
+    this.candidates$ = this.candidateFacade.candidates$;
   }
 
-  public removeCandidate(id: number) {
-    this.candidateService.removeCandidate(id);
+  public removeCandidate(id: number): void {
+    this.candidateFacade.removeCandidate(id);
   }
 }

@@ -1,4 +1,5 @@
 export interface Candidate {
-  name: string;
-  grade: number;
+  id?: number;
+  name?: string;
+  grade?: number;
 }

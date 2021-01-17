@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CandidatesRepository } from '../shared/repositories/candidates.repository';
+import { CandidatesRepository } from '../shared/services/candidates.repository';
 import { Candidate } from './candidate';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class CandidatesService {
   }
 
   public getAll() {
-    this.candidates = this.candidatesRepository.getAll();
+    // this.candidates = this.candidatesRepository.getAll();
     this.castCandidates.next(this.candidates);
   }
 

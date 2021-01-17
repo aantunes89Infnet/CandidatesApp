@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Observable, of } from 'rxjs';
 import { Candidate } from 'src/app/candidates/candidate';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CandidatesRepository {
+  public BASE_URL = environment.jsonServerAPI;
+
   public firstInteraction: boolean = false;
 
   public placeHolderList: Candidate[] = [
@@ -12,22 +17,40 @@ export class CandidatesRepository {
     { name: 'Mayara', grade: 9 },
   ];
 
-  constructor() {}
+  constructor(private ngxsStore: Store) {}
 
   public store(candidates: Candidate[]) {
     localStorage.setItem('candidates', JSON.stringify(candidates));
     this.firstInteraction = true;
   }
 
-  public getAll(): Candidate[] {
+  public getAll(): Observable<Candidate[]> {
     // this.setupInitialList();
-    return JSON.parse(localStorage.getItem('candidates'));
+    return of(JSON.parse(localStorage.getItem('candidates')));
   }
 
-  public remove(id: number): void {
-    let candidates = this.getAll();
-    candidates = candidates.filter((candidate, index) => index !== id);
-    this.store(candidates);
+  public remove(id: number): Observable<boolean> {
+    const {
+      candidatesState: { candidates },
+    } = this.ngxsStore.snapshot();
+
+    const newCandidatesList = candidates.filter(
+      (candidate, index) => index !== id
+    );
+    this.store(newCandidatesList);
+
+    return of(newCandidatesList[id] ? false : true);
+  }
+
+  public addCandidate(candidate: Candidate): Observable<Candidate> {
+    const {
+      candidatesState: { candidates },
+    } = this.ngxsStore.snapshot();
+
+    const newCandidatesList = [...candidates, candidate];
+    this.store(newCandidatesList);
+
+    return of(newCandidatesList.length > candidates.length ? candidate : null);
   }
 
   public setupInitialList() {
