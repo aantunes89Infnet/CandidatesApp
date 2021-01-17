@@ -1,0 +1,26 @@
+GET http://localhost:3000/candidates
+
+###
+POST http://localhost:3000/candidates HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Caro",
+  "grade": 8
+}
+
+###
+PUT http://localhost:3000/candidates/3 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Caro",
+  "grade": 12
+}
+
+###
+
+GET http://localhost:3000/candidates/1
+
+###
+DELETE http://localhost:3000/candidates/3 HTTP/1.1

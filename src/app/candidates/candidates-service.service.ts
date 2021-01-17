@@ -23,7 +23,7 @@ export class CandidatesService {
 
   public addCandidate(candidate: Candidate): void {
     this.candidates.push(candidate);
-    this.candidatesRepository.store(this.candidates);
+    // this.candidatesRepository.store(this.candidates);
     this.castCandidates.next(this.candidates);
   }
 

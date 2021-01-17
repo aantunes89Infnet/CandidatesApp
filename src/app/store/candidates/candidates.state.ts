@@ -67,15 +67,13 @@ export class CandidateState {
     stateContext: StateContext<CandidateStateModel>,
     { candidate }: AddCandidate
   ) {
-    return this.candidatesRepository.addCandidate(candidate).pipe(
-      mergeMap((responseCandidate) =>
-        stateContext.dispatch(new AddCandidateSuccess(responseCandidate))
-      ),
-      catchError((err) => {
-        console.log(err);
-        return err;
-      })
-    );
+    return this.candidatesRepository
+      .addCandidate(candidate)
+      .pipe(
+        mergeMap((responseCandidate) =>
+          stateContext.dispatch(new AddCandidateSuccess(responseCandidate))
+        )
+      );
   }
 
   @Action(AddCandidateSuccess)
@@ -107,7 +105,7 @@ export class CandidateState {
   ) {
     const { candidates } = getState();
     const newListOfCandidates = candidates.filter(
-      (candidate, index) => index !== candidateId
+      ({ id }) => id !== candidateId
     );
     patchState({ candidates: newListOfCandidates });
   }
