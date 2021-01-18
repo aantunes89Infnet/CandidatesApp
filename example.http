@@ -1,0 +1,11 @@
+http://localhost:3000/candidates
+
+###
+POST http://localhost:3000/candidates
+Content-Type: application/json
+
+{
+  "name": "Joana",
+  "grade": 20
+}
+

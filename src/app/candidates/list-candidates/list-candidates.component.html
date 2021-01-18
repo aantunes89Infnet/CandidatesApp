@@ -1,12 +1,15 @@
 <div class="list-container" *ngIf="candidates$ | async as candidates">
   <div *ngIf="candidates.length; else emptyCandidatesList">
-    <div *ngFor="let candidate of candidates; let i = index" class="list-group">
+    <div *ngFor="let candidate of candidates" class="list-group">
       <div class="row candidate-item">
         <div class="list-group-item">
           <div class="list-group-item-content">
             {{ candidate.name }} - Nota: {{ candidate.grade }}
           </div>
-          <span class="material-icons delete-btn" (click)="removeCandidate(i)">
+          <span
+            class="material-icons delete-btn"
+            (click)="removeCandidate(candidate.id)"
+          >
             delete
           </span>
         </div>

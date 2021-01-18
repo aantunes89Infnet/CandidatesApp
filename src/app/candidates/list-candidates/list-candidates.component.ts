@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Candidate } from '../candidate';
-import { CandidatesService } from '../candidates-service.service';
+import { getCandidatesSelector } from '../state/candidates.reducer';
+import * as CandidatesActions from '../state/candidates.actions';
 
 @Component({
   selector: 'app-list-candidates',
@@ -10,15 +12,15 @@ import { CandidatesService } from '../candidates-service.service';
 })
 export class ListCandidatesComponent implements OnInit {
   public candidates$: Observable<Candidate[]>;
-
-  constructor(private candidateService: CandidatesService) {}
+  1;
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.candidateService.getAll();
-    this.candidates$ = this.candidateService.candidates$;
+    this.store.dispatch(CandidatesActions.getCandidates());
+    this.candidates$ = this.store.select(getCandidatesSelector);
   }
 
-  public removeCandidate(id: number) {
-    this.candidateService.removeCandidate(id);
+  public removeCandidate(candidateId: number) {
+    this.store.dispatch(CandidatesActions.removeCandidate({ candidateId }));
   }
 }

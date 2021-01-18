@@ -1,0 +1,14 @@
+{
+  "candidates": [
+    {
+      "name": "José",
+      "grade": "10",
+      "id": 1
+    },
+    {
+      "name": "André",
+      "grade": 20,
+      "id": 2
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CandidatesService } from '../candidates-service.service';
+import { Store } from '@ngrx/store';
+import * as CandidatesActions from '../state/candidates.actions';
 
 @Component({
   selector: 'app-create-candidates',
@@ -11,10 +12,7 @@ import { CandidatesService } from '../candidates-service.service';
 export class CreateCandidatesComponent implements OnInit {
   CreateCandidateForm: FormGroup;
 
-  constructor(
-    private candidatesService: CandidatesService,
-    private router: Router
-  ) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.CreateCandidateForm = new FormGroup({
@@ -32,10 +30,12 @@ export class CreateCandidatesComponent implements OnInit {
   }
 
   private persistCandidate(): void {
-    this.candidatesService.addCandidate({
+    const candidate = {
       name: this.CreateCandidateForm.get('name').value,
       grade: this.CreateCandidateForm.get('grade').value,
-    });
+    };
+
+    this.store.dispatch(CandidatesActions.addCandidate({ candidate }));
   }
 
   private routeToList(): void {
