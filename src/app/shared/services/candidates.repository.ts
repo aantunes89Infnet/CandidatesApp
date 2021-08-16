@@ -20,8 +20,8 @@ export class CandidatesRepository {
   }
 
   public getAll(): Candidate[] {
-    // this.setupInitialList();
-    return JSON.parse(localStorage.getItem('candidates'));
+    const candidates = JSON.parse(localStorage.getItem('candidates'));
+    return candidates ? candidates : [];
   }
 
   public remove(id: number): void {
