@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CandidateFacade } from 'src/app/store/candidates/candidates-facade.service';
-import { CandidatesService } from '../candidates-service.service';
 
 @Component({
   selector: 'app-create-candidates',

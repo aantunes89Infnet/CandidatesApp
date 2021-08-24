@@ -8,12 +8,11 @@ import {
   GetCandidateList,
   RemoveCandidate,
 } from './candidates.actions';
-import { CandidateState } from './candidates.state';
+import { CandidateState } from './candidates.state.service';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateFacade {
-  @Select(CandidateState.candidates)
-  public candidates$: Observable<Candidate[]>;
+
 
   @Dispatch()
   public getAll() {

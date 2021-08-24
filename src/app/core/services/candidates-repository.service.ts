@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Candidate } from 'src/app/candidates/candidate';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +10,7 @@ export class CandidatesRepository {
 
   public firstInteraction: boolean = false;
 
-  constructor(private http: HttpClient, private ngxsStore: Store) {}
+  constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(this.BASE_URL);

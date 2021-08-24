@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, Selector } from '@ngxs/store';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
-import { CandidatesRepository } from 'src/app/shared/services/candidates.repository';
+import { mergeMap, tap } from 'rxjs/operators';
+import { CandidatesRepository } from 'src/app/core/services/candidates-repository.service';
 import { Candidate } from '../../candidates/candidate';
-import {
-  AddCandidate,
-  AddCandidateSuccess,
-  GetCandidateList,
-  GetCandidateListSucces,
-  RemoveCandidate,
-  RemoveCandidateSuccess,
-} from './candidates.actions';
+import * as Actions from './candidates.actions';
 
 export interface CandidateStateModel {
   candidates: Candidate[];
@@ -33,75 +26,56 @@ export class CandidateState {
     return state.candidates;
   }
 
-  @Action(GetCandidateList)
+  @Action(Actions.GetCandidateList)
   getCandidates(
-    stateContext: StateContext<CandidateStateModel>,
-    action: GetCandidateList
+    { patchState }: StateContext<CandidateStateModel>,
+    action: Actions.GetCandidateList
   ) {
     return this.candidatesRepository
       .getAll()
-      .pipe(
-        mergeMap((candidates) =>
-          stateContext.dispatch(new GetCandidateListSucces(candidates))
-        )
-      );
+      .pipe(tap((candidates) => patchState({ candidates })));
   }
 
-  @Action(GetCandidateListSucces)
-  getCandidatesSucces(
-    ctx: StateContext<CandidateStateModel>,
-    { candidates }: GetCandidateListSucces
-  ) {
-    const state = ctx.getState();
-
-    const current = { candidates };
-
-    ctx.setState({
-      ...state,
-      ...current,
-    });
-  }
-
-  @Action(AddCandidate)
+  @Action(Actions.AddCandidate)
   addCandidate(
     stateContext: StateContext<CandidateStateModel>,
-    { candidate }: AddCandidate
+    { candidate }: Actions.AddCandidate
   ) {
     return this.candidatesRepository
       .addCandidate(candidate)
       .pipe(
         mergeMap((responseCandidate) =>
-          stateContext.dispatch(new AddCandidateSuccess(responseCandidate))
+          stateContext.dispatch(new Actions.AddCandidateSuccess(responseCandidate))
         )
       );
   }
 
-  @Action(AddCandidateSuccess)
+  @Action(Actions.AddCandidateSuccess)
   addCandidateSuccess(
     { patchState, getState }: StateContext<CandidateStateModel>,
-    { candidate }: AddCandidate
+    { candidate }: Actions.AddCandidate
   ) {
     console.log('triggerado 2');
     const { candidates } = getState();
     patchState({ candidates: [...candidates, candidate] });
   }
 
-  @Action(RemoveCandidate) // watcher
+  @Action(Actions.RemoveCandidate) // watcher
   removeCandidate(
     stateContext: StateContext<CandidateStateModel>,
-    { candidateId }: RemoveCandidate
+    { candidateId }: Actions.RemoveCandidate
   ) {
     return this.candidatesRepository.remove(candidateId).pipe(
       mergeMap(() => {
-        return stateContext.dispatch(new RemoveCandidateSuccess(candidateId));
+        return stateContext.dispatch(new Actions.RemoveCandidateSuccess(candidateId));
       })
     );
   }
 
-  @Action(RemoveCandidateSuccess)
+  @Action(Actions.RemoveCandidateSuccess)
   removeCandidateSuccess(
     { getState, patchState }: StateContext<CandidateStateModel>,
-    { candidateId }: RemoveCandidateSuccess
+    { candidateId }: Actions.RemoveCandidateSuccess
   ) {
     const { candidates } = getState();
     const newListOfCandidates = candidates.filter(

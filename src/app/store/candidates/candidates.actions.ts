@@ -4,11 +4,6 @@ export class GetCandidateList {
   static readonly type = '[CANDIDATE] GET LIST';
 }
 
-export class GetCandidateListSucces {
-  static readonly type = '[CANDIDATE] GET SUCCESS';
-  constructor(public candidates: Candidate[]) {}
-}
-
 export class AddCandidate {
   static readonly type = '[CANDIDATE] ADD';
   constructor(public candidate: Candidate) {}

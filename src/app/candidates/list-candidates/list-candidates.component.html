@@ -1,5 +1,5 @@
-<div class="list-container" *ngIf="candidates$ | async as candidates">
-  <div *ngIf="candidates.length; else emptyCandidatesList">
+<div class="list-container" *ngIf="candidates$ | async as candidates ; else emptyCandidatesList">
+  
     <div *ngFor="let candidate of candidates" class="list-group">
       <div class="row candidate-item">
         <div class="list-group-item">
@@ -21,17 +21,16 @@
         >Cadastrar</a
       >
     </div>
-  </div>
-
-  <ng-template #emptyCandidatesList>
-    <div class="empty-list-container">
-      <h1>Nenhum candidato cadastrado</h1>
-      <p>Por favor clique em Cadastrar para cadastrar um candidato</p>
-      <div class="action-buttons-container w-100">
-        <a [routerLink]="'/candidates/create'" class="btn btn-primary add-btn"
-          >Cadastrar</a
-        >
-      </div>
-    </div>
-  </ng-template>
 </div>
+
+<ng-template #emptyCandidatesList>
+  <div class="empty-list-container">
+    <h1>Nenhum candidato cadastrado</h1>
+    <p>Por favor clique em Cadastrar para cadastrar um candidato</p>
+    <div class="action-buttons-container w-100">
+      <a [routerLink]="'/candidates/create'" class="btn btn-primary add-btn"
+        >Cadastrar</a
+      >
+    </div>
+  </div>
+</ng-template>

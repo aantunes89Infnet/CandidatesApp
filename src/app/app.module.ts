@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { CandidatesModule } from './candidates/candidates.module';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from 'src/environments/environment';
-import { CandidateState } from './store/candidates/candidates.state';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
